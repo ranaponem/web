@@ -88,43 +88,26 @@ $disciplines = loadDisciplinesOfCourse($courseAbr);
                                         h-0 sm:h-auto                                        
                                         p-0 ps-6 sm:p-6 
                                         invisible sm:invisible sm:group-hover:visible">
-                                <a class="submenu-curricula-dropdown-active" href="./curricula.php">
-                                    Computer Engineering
-                                </a>
-
-                                <a class="submenu-curricula-dropdown" href="./curricula.php">
-                                    Digital Games and Multimedia
-                                </a>
-
-                                <a class="submenu-curricula-dropdown" href="./curricula.php">
-                                    Master's in Computer Engineering - Mobile Computing
-                                </a>
-
-                                <a class="submenu-curricula-dropdown" href="./curricula.php">
-                                    Master's in Cybersecurity and Computer Forensics
-                                </a>
-
-                                <a class="submenu-curricula-dropdown" href="./curricula.php">
-                                    Master's in Data Science
-                                </a>
-
-                                <a class="submenu-curricula-dropdown" href="./curricula.php">
-                                    TeSP - Web and Multimedia Development
-                                </a>
-
-                                <a class="submenu-curricula-dropdown" href="./curricula.php">
-                                    TeSP - Information System Programming
-                                </a>
-
-                                <a class="submenu-curricula-dropdown" href="./curricula.php">
-                                    TeSP - Computer Networks and Systems
-                                </a>
-                                <a class="submenu-curricula-dropdown" href="./curricula.php">
-                                    TeSP - Cybersecurity and Computer Networks
-                                </a>
-                                <a class="submenu-curricula-dropdown" href="./curricula.php">
-                                    TeSP - IT Technologies
-                                </a>
+                                        <?php foreach ($courses as $c) : ?>
+                                            <?php if (strtolower($c->abbreviation) == strtolower($courseAbr)) : ?>
+                                            <a class="px-2 py-4 border-b-2 border-indigo-400 dark:border-indigo-500
+                                            text-sm font-medium leading-5 text-gray-900 dark:text-gray-100
+                                            focus:outline-none focus:border-indigo-700
+                                            dark:focus:border-indigo-300
+                                            focus:border-gray-300 dark:focus:border-gray-700"
+                                            href="./curricula.php?course=<?= $c->abbreviation ?>">
+                                            <?php else : ?>
+                                            <a class="px-2 py-4 border-b-2 border-transparent text-sm font-medium
+                                            leading-5 text-gray-500 dark:text-gray-400 hover:border-gray-300
+                                            dark:hover:border-gray-700 hover:text-gray-700
+                                            dark:hover:text-gray-300 focus:outline-none
+                                            focus:border-gray-300 dark:focus:border-gray-700
+                                            focus:text-gray-700 dark:focus:text-gray-300"
+                                            href="./curricula.php?course=<?= $c->abbreviation ?>">
+                                            <?php endif; ?>
+                                            <?= courseFullName($c->name, $c->type) ?>
+                                            </a>
+                                <?php endforeach; ?>
                             </div>
                         </div>
 
