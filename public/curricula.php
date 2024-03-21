@@ -1,3 +1,11 @@
+<?php
+require_once('functions.php');
+require_once('my_functions.php');
+$courseAbr = $_GET['course'] ?? 'EI';
+$courses = loadCourses();
+$course = filterCourses($courses, $courseAbr)[0] ?? null;
+$disciplines = loadDisciplinesOfCourse($courseAbr);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -187,7 +195,7 @@
                     Department of Computer Engineering
                 </h4>
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    Curriculum of Computer Engineering
+                    <?= courseFullName($course->name, $course->type) ?>
                 </h2>
             </div>
         </header>
@@ -205,97 +213,43 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th class="py-1 px-3 border-b-2 border-x-2 border-b-gray-400 dark:border-b-gray-500 border-x-gray-400 dark:border-x-gray-500 bg-gray-100 dark:bg-gray-800" rowspan="6">1</th>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Linear Algebra</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Statistics</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Mathematical Analysis</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">English</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Applied Physics</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Discrete Mathematics</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Programming I</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Programming II</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Computer Systems</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Operating Systems</td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b-2 border-b-gray-400 dark:border-b-gray-500 border-e-2 border-e-gray-400 dark:border-e-gray-500"></td>
-                                    <td class="border py-1 px-3 border-b-2 border-b-gray-400 dark:border-b-gray-500  border-e-2 border-e-gray-400 dark:border-e-gray-500">Internet Technologies</td>
-                                </tr>
-                                <tr>
-                                    <th class="py-1 px-3 border-b-2 border-x-2 border-b-gray-400 dark:border-b-gray-500 border-x-gray-400 dark:border-x-gray-500 bg-gray-100 dark:bg-gray-800" rowspan="8">2</th>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Graphic Systems and Interaction</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Internet Applications</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Algorithms and Data Structures</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Software Engineering</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Databases</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Artificial Intelligence</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Computer Networks</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Database Systems</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Advanced Programming</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Information Security</td>
-                                </tr>
-                                <tr>
-                                    <td class="border-e-2 border-e-gray-400 dark:border-e-gray-500"></td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Virtualization Technologies</td>
-                                </tr>
-                                <tr>
-                                    <td class="border-e-2 border-e-gray-400 dark:border-e-gray-500"></td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Data Networks</td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b-2 border-b-gray-400 dark:border-b-gray-500 border-e-2 border-e-gray-400 dark:border-e-gray-500"></td>
-                                    <td class="border py-1 px-3 border-b-2 border-b-gray-400 dark:border-b-gray-500  border-e-2 border-e-gray-400 dark:border-e-gray-500">Systems Administration</td>
-                                </tr>
-                                <tr>
-                                    <th class="py-1 px-3 border-b-2 border-x-2 border-b-gray-400 dark:border-b-gray-500 border-x-gray-400 dark:border-x-gray-500 bg-gray-100 dark:bg-gray-800" rowspan="8">3</th>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Distributed Application Development</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Seminar</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Systems Integration</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Innovation and Entrepreneurship</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Advanced Topics in Software Engineering</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Knowledge Engineering</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Business Application Development</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Business Information Systems</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Decision Support Systems</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Information Technology Laboratory</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Data Processing Centers</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Systems and Services Engineering</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">Advanced Networking Topics</td>
-                                    <td class="border border-b-gray-300 dark:border-b-gray-700 py-1 px-3 border-e-2 border-e-gray-400 dark:border-e-gray-500">IT Project</td>
-                                </tr>
-                                <tr>
-                                    <td class="border py-1 px-3 border-b-2 border-b-gray-400 dark:border-b-gray-500  border-e-2 border-e-gray-400 dark:border-e-gray-500">Systems Security</td>
-                                    <td class="border-b-2 border-b-gray-400 dark:border-b-gray-500 border-e-2 border-e-gray-400 dark:border-e-gray-500"></td>
-                                </tr>
+                                <?php
+                                // Considering maximum number of years is 5
+                                    for ($year = 1; $year <= 5; $year++) {
+                                        $semesters[1] = filterDisciplines($disciplines, $year, 1);
+                                        $semesters[2] = filterDisciplines($disciplines, $year, 2);
+                                        $totals[1] = count($semesters[1]);
+                                        $totals[2] = count($semesters[2]);
+                                        $biggestTotal = max($totals);
+                                        for ($i = 0; $i < $biggestTotal; $i++) {
+                                            echo "<tr>";
+                                            // First Line
+                                            if ($i == 0) {
+                                                echo "<th class='py-1 px-3 border-b-2 border-x-2 border-b-gray-400
+                                                dark:border-b-gray-500 border-x-gray-400
+                                                dark:border-x-gray-500 bg-gray-100 dark:bg-gray-800'
+                                                rowspan='{$biggestTotal}'>{$year}</th>";
+                                            }
+                                            for ($n = 1; $n <= 2; $n++) {
+                                                $discName = $semesters[$n][$i]->name ?? '';
+                                                if ($i == ($biggestTotal - 1)) {
+                                                    // Last line of the year
+                                                    echo "<td class='border border-b-2 border-b-gray-400
+                                                    dark:border-b-gray-500 py-1 px-3 border-e-2
+                                                    border-e-gray-400 dark:border-e-gray-500'>
+                                                    {$discName }</td>";
+                                                } else {
+                                                    // Other lines
+                                                    echo "<td class='border border-b-gray-300
+                                                    dark:border-b-gray-700 py-1 px-3 border-e-2
+                                                    border-e-gray-400 dark:border-e-gray-500'>
+                                                    {$discName }</td>";
+                                                }
+                                            }
+                                            echo "</tr>";
+                                        }
+                                    }
+                                ?>
                             </tbody>
                         </table>
                     </div>
